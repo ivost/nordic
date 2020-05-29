@@ -1,0 +1,8 @@
+cmake-build-debug
+**/ses/Output
+*.jlink
+*.emSession
+hex
+*.elf
+*.uv*
+iar
