@@ -97,6 +97,7 @@
       <file file_name="../../../buttons.c" />
       <file file_name="../../../ble_m.c" />
       <file file_name="../../../ble_m.h" />
+      <file file_name="../../../scratch.txt" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../../../../../../external/segger_rtt/SEGGER_RTT.c" />
