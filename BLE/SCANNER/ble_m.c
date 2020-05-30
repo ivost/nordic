@@ -101,7 +101,8 @@ NRF_BLE_GQ_DEF(m_ble_gatt_queue,                                        /**< BLE
                NRF_SDH_BLE_CENTRAL_LINK_COUNT,
                NRF_BLE_GQ_QUEUE_SIZE);
 
-static char const m_target_periph_name[] = "SensorTag"; //"Thing";             /**< Name of the device to try to connect to. This name is searched for in the scanning report data. */
+//static char const m_target_periph_name[] = "SensorTag";             /**< Name of the device to try to connect to. This name is searched for in the scanning report data. */
+static char const m_target_periph_name[] = "Thing";             /**< Name of the device to try to connect to. This name is searched for in the scanning report data. */
 
 /**@brief Function for handling the Heart Rate Service Client and Battery Service Client errors.
  *
@@ -401,8 +402,8 @@ static void on_adv_report(ble_gap_evt_adv_report_t const * p_adv_report)
     memcpy(dev_name, &p_adv_data[dev_name_offset], field_len);
     dev_name[field_len] = 0;
 
-    if (dev_name[0] > ' ')
-      NRF_LOG_DEBUG("Found advertising device: %s", nrf_log_push((char *)dev_name));
+//    if (dev_name[0] > ' ')
+//      NRF_LOG_DEBUG("Found advertising device: %s", nrf_log_push((char *)dev_name));
 }
 
 /**@brief Function for displaying an address in HEX format.
@@ -1119,20 +1120,20 @@ static void ble_stack_init(void)
 
 
 
-/**
- * @brief Function for initializing the Battery Level Collector.
- */
-static void bas_c_init(void)
-{
-    ble_bas_c_init_t bas_c_init_obj;
-
-    bas_c_init_obj.evt_handler   = bas_c_evt_handler;
-    bas_c_init_obj.error_handler = service_error_handler;
-    bas_c_init_obj.p_gatt_queue  = &m_ble_gatt_queue;
-
-    ret_code_t err_code = ble_bas_c_init(&m_bas_c, &bas_c_init_obj);
-    APP_ERROR_CHECK(err_code);
-}
+///**
+// * @brief Function for initializing the Battery Level Collector.
+// */
+//static void bas_c_init(void)
+//{
+//    ble_bas_c_init_t bas_c_init_obj;
+//
+//    bas_c_init_obj.evt_handler   = bas_c_evt_handler;
+//    bas_c_init_obj.error_handler = service_error_handler;
+//    bas_c_init_obj.p_gatt_queue  = &m_ble_gatt_queue;
+//
+//    ret_code_t err_code = ble_bas_c_init(&m_bas_c, &bas_c_init_obj);
+//    APP_ERROR_CHECK(err_code);
+//}
 
 
 /**
@@ -1234,7 +1235,7 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
                   p_evt->conn_handle,
                   p_evt->conn_handle);
 
-    //ble_bas_on_db_disc_evt(&m_bas_c[p_evt->conn_handle], p_evt);
+    ble_bas_on_db_disc_evt(&m_bas_c[p_evt->conn_handle], p_evt);
 }
 
 
@@ -1261,23 +1262,23 @@ static void bas_error_handler(uint32_t nrf_error)
 }
 
 
-///**@brief Batt.service (BAS) collector initialization. */
-//static void bas_c_init(void)
-//{
-//    ret_code_t       err_code;
-//    ble_bas_c_init_t bas_c_init_obj;
-//
-//    bas_c_init_obj.evt_handler   = bas_c_evt_handler;
-//    bas_c_init_obj.p_gatt_queue  = &m_ble_gatt_queue;
-//    bas_c_init_obj.error_handler = bas_error_handler;
-//
-//    for (uint32_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT; i++)
-//    {
-//        err_code = ble_bas_c_init(&m_bas_c[i], &bas_c_init_obj);
-//        APP_ERROR_CHECK(err_code);
-//    }
-//}
-//
+/**@brief Batt.service (BAS) collector initialization. */
+static void bas_c_init(void)
+{
+    ret_code_t       err_code;
+    ble_bas_c_init_t bas_c_init_obj;
+
+    bas_c_init_obj.evt_handler   = bas_c_evt_handler;
+    bas_c_init_obj.p_gatt_queue  = &m_ble_gatt_queue;
+    bas_c_init_obj.error_handler = bas_error_handler;
+
+    for (uint32_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT; i++)
+    {
+        err_code = ble_bas_c_init(&m_bas_c[i], &bas_c_init_obj);
+        APP_ERROR_CHECK(err_code);
+    }
+}
+
 //
 ///**@brief Handles events coming from the LED Button central module.
 // *
@@ -1336,7 +1337,7 @@ void ble_m_init(void)
     gatt_init();
     db_discovery_init();
     bas_c_init();
-    ble_conn_state_init();
+    //ble_conn_state_init();
     scan_init();
 
 ////    buttons_leds_init();
