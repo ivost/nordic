@@ -1,0 +1,6 @@
+**/_build/*
+*.TMP
+*.uvguix*
+*.uvoptx
+**/JLinkLog.txt
+**/Output/
