@@ -942,7 +942,7 @@ void scanning_start(bool * p_erase_bonds)
 
 int main(void)
 {
-    bool erase_bonds = true;
+    bool erase_bonds = true;  
 
     // Initialize.
     log_init();
