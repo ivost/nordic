@@ -402,8 +402,10 @@ static void on_adv_report(ble_gap_evt_adv_report_t const * p_adv_report)
     memcpy(dev_name, &p_adv_data[dev_name_offset], field_len);
     dev_name[field_len] = 0;
 
-//    if (dev_name[0] > ' ')
-//      NRF_LOG_DEBUG("Found advertising device: %s", nrf_log_push((char *)dev_name));
+    if (dev_name[0] > ' ') 
+    {
+      NRF_LOG_DEBUG("Found advertising device: %s", nrf_log_push((char *)dev_name));
+    }
 }
 
 /**@brief Function for displaying an address in HEX format.
@@ -820,12 +822,12 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             break;
 
 
-        case BLE_GATTC_EVT_PRIM_SRVC_DISC_RSP:
-        {
-            NRF_LOG_DEBUG("BLE_GATTC_EVT_PRIM_DISC_RSP");
-            on_primary_srv_discovery_rsp(&(p_ble_evt->evt.gattc_evt));
-        }
-        break;
+//        case BLE_GATTC_EVT_PRIM_SRVC_DISC_RSP:
+//        {
+//            NRF_LOG_DEBUG("BLE_GATTC_EVT_PRIM_DISC_RSP");
+//            on_primary_srv_discovery_rsp(&(p_ble_evt->evt.gattc_evt));
+//        }
+//        break;
 
 
 //        case BLE_GATTC_EVT_DESC_DISC_RSP:

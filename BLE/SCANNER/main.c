@@ -103,7 +103,7 @@ int main(void)
     ble_m_init();
 
     // Start execution.
-    NRF_LOG_INFO("Scanner v.0.5.29.0 starting.");
+    NRF_LOG_INFO("Scanner v.0.5.31.0 starting.");
     scan_start();
 
     for (;;)
